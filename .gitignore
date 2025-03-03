@@ -1,0 +1,24 @@
+# 忽略虚拟环境
+.venv/
+
+# 忽略 Python 编译文件
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 忽略 Django 的 SQLite 数据库（如果使用）
+*.sqlite3
+
+# 忽略环境变量文件
+.env
+
+# 忽略静态文件（生产环境收集的）
+staticfiles/
+
+# 忽略上传文件
+uploads/
+
+# 忽略 IDE 配置文件
+.vscode/
+.idea/
