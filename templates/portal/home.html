@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>MyAI 导航</title>
+    {% csrf_token %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="header">
+        <h1 class="logo">myAI</h1>
+        <div class="total-visits">
+            总访问量: <span id="totalVisits">{{ total_visits }}</span>
+        </div>
+    </header>
+
+    <main class="platform-grid" id="cardContainer">
+        {% for platform in platforms %}
+        <div class="platform-card" data-id="{{ platform.id }}">
+            <div class="drag-handle">☰</div>
+            <h2 class="platform-title">{{ platform.name }}</h2>
+            <p class="platform-desc">{{ platform.description }}</p>
+            <div class="platform-bottom">  <!-- 新增容器 -->
+                <div class="platform-stats">
+                    <span class="visit-count">{{ platform.cached_visits }}</span> 次访问
+                </div>
+                <a href="{{ platform.url }}"
+                   class="visit-link"
+                   target="_blank"
+                   data-platform-id="{{ platform.id }}">
+                    立即访问
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

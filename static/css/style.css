@@ -1,0 +1,129 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --card-bg: #ffffff;
+}
+
+body {
+    margin: 0;
+    padding: 0; /* 确保 body 没有默认的 padding */
+    font-family: 'Segoe UI', system-ui;
+    background-color: #f5f6fa;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 20px; /* 左右 padding 为 20px */
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 1400px; /* 最大宽度为 1400px */
+    margin: 0 auto; /* 居中 */
+    box-sizing: border-box; /* 确保 padding 包含在总宽度内 */
+}
+
+.platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding-top: 1rem; /* 单独设置顶部 padding */
+    max-width: 1400px; /* 最大宽度为 1400px */
+    margin: 0 auto; /* 居中 */
+    box-sizing: border-box; /* 确保 padding 包含在总宽度内 */
+}
+
+.platform-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 200px; /* 固定卡片高度 */
+    padding-left: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; /* 为底部区域定位做准备 */
+    box-sizing: border-box;
+}
+
+.platform-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.platform-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.platform-desc {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    max-height: 5em;
+    flex-grow: 1;
+    //margin-bottom: 1rem; /* 增加底部间距 */
+}
+
+.platform-bottom {
+    position: absolute;
+    bottom: 1.5rem; /* 固定在卡片底部 */
+    left: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 3rem);
+}
+
+.drag-handle {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    opacity: 0.3;
+    cursor: move;
+    transition: opacity 0.2s;
+}
+
+.drag-handle:hover {
+    opacity: 1;
+}
+
+.dragging {
+    opacity: 0.5;
+}
+
+.platform-stats {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.visit-link {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s;
+    text-align: center;
+}
+
+.visit-link:hover {
+    background: #2980b9;
+}
+
+@media (max-width: 768px) {
+    .platform-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+}
