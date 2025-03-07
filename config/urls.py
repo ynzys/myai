@@ -16,9 +16,19 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path,include,re_path
+from django.http import HttpResponse,HttpResponseNotFound
+
+
+def favicon(request):
+    return HttpResponse(status=204)
+
+def block_wordpress(request):
+    return HttpResponseNotFound()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.portal.urls')),
+    path('favicon.ico', favicon),
+    re_path(r'^wp-(admin|includes|content)/', block_wordpress),
 ]

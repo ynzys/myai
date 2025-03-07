@@ -1,3 +1,12 @@
+# 忽略运行服务的文件
+nohup.out
+
+# 忽略数据库备份文件
+1.sql
+
+# 忽略celery相关规则
+celerybeat-schedule.*
+
 # 忽略虚拟环境
 .venv/
 
@@ -15,6 +24,7 @@ __pycache__/
 
 # 忽略静态文件（生产环境收集的）
 staticfiles/
+static/
 
 # 忽略上传文件
 uploads/
@@ -22,3 +32,6 @@ uploads/
 # 忽略 IDE 配置文件
 .vscode/
 .idea/
+
+# 忽略myai文件夹
+myai/

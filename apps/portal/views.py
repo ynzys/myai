@@ -9,10 +9,21 @@ def home(request):
     platforms = AIPlatform.objects.all()
     redis = get_redis_connection("default")
     # 将 Redis 中的访问量合并到平台对象中
+    #for platform in platforms:
+    #    redis_key = f'platform_visits:{platform.id}'
+    #    cached_visits = redis.get(redis_key)
+    #    platform.cached_visits = int(cached_visits) if cached_visits else platform.visit_count
+
     for platform in platforms:
         redis_key = f'platform_visits:{platform.id}'
         cached_visits = redis.get(redis_key)
-        platform.cached_visits = int(cached_visits) if cached_visits else platform.visit_count
+        if cached_visits is None:
+            logging.info(f"Redis 中 {redis_key} 数据过期，使用 MySQL 数据: {platform.visit_count}")
+            platform.cached_visits = platform.visit_count
+            # 重新将数据存入 Redis 并设置过期时间（例如 604800秒，即 1周）
+            redis.setex(redis_key, 604800 , platform.visit_count)
+        else:
+            platform.cached_visits = int(cached_visits)
 
     # 按缓存访问量降序，order 升序排序
     platforms = sorted(platforms, key=lambda x: (-x.cached_visits, x.order))

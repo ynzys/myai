@@ -10,7 +10,6 @@ def sync_visits_to_db():
     for platform in platforms:
         redis_key = f'platform_visits:{platform.id}'
         cached_visits = redis.get(redis_key)
-        print(cached_visits)
         if cached_visits:
             platform.visit_count = int(cached_visits) # 把redis缓存同步回数据库
             print(platform.visit_count)

@@ -31,7 +31,7 @@ SECRET_KEY = "django-insecure-3^d6z_%(vlb)v!_$q&dmq7#16brm3m69&)5h&%6t7^t4_jmxs@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['8.140.225.161','myseek.fun','www.myseek.fun','myseek.pro','www.myseek.pro']
 
 
 # Application definition
@@ -45,10 +45,38 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # zys add
     'apps.portal.apps.PortalConfig',  # 添加这行
+    'corsheaders',
 
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
+
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+    # 若有自定义请求头，添加在这里
+    "your-custom-header",
+]
+
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -137,6 +165,7 @@ STATIC_URL = "static/"
 # 静态文件目录
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -145,7 +174,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",  # 默认端口6379
+        "LOCATION": "redis://127.0.0.1:6379/3",  # 默认端口6379,业务数据缓存
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -154,8 +183,8 @@ CACHES = {
 
 
 # settings.py
-CELERY_BROKER_URL = 'redis://localhost:6379/0'  # 使用编号为 0 的数据库作为消息队列
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'  # 使用编号为 1 的数据库存储任务结果
+CELERY_BROKER_URL = 'redis://localhost:6379/1'  # 使用编号为 0 的数据库作为消息队列
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'  # 使用编号为 1 的数据库存储任务结果
 # 序列化配置
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -169,7 +198,7 @@ CELERY_TIMEZONE = 'Asia/Shanghai'
 CELERY_BEAT_SCHEDULE = {
     'sync-visits-every-hour': {
         'task': 'apps.portal.tasks.sync_visits_to_db',  # 确保路径正确
-        'schedule': 20,  # 每 3600 秒（1 小时）执行一次
+        'schedule': 3600,  # 每 3600 秒（1 小时）执行一次
     },
 }
 
