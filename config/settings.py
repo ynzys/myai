@@ -29,13 +29,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-3^d6z_%(vlb)v!_$q&dmq7#16brm3m69&)5h&%6t7^t4_jmxs@"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['8.140.225.161','myseek.fun','www.myseek.fun','myseek.pro','www.myseek.pro']
-
+# 从环境变量中获取配置信息
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
