@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django_redis import get_redis_connection
 from .models import AIPlatform
-
+import logging
 
 def home(request):
     platforms = AIPlatform.objects.all()

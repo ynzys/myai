@@ -49,16 +49,21 @@ INSTALLED_APPS = [
 
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "https://myseek.fun",
+    "https://www.myseek.fun",
+    "http://localhost:8080",
+]
 
 
 CORS_ALLOW_METHODS = [
-    "DELETE",
+    #"DELETE",
     "GET",
     "OPTIONS",
-    "PATCH",
+    #"PATCH",
     "POST",
-    "PUT",
+    #"PUT",
 ]
 
 CORS_ALLOW_HEADERS = [
@@ -66,14 +71,15 @@ CORS_ALLOW_HEADERS = [
     "accept-encoding",
     "authorization",
     "content-type",
-    "dnt",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
+    #"dnt",
+    #"origin",
+    #"user-agent",
+    #"x-csrftoken",
+    #"x-requested-with",
     # 若有自定义请求头，添加在这里
-    "your-custom-header",
+
 ]
+CORS_PREFLIGHT_MAX_AGE = 86400
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",

@@ -24,6 +24,7 @@ __pycache__/
 
 # 忽略静态文件（生产环境收集的）
 staticfiles/
+
 static/
 
 # 忽略上传文件

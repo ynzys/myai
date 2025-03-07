@@ -24,11 +24,11 @@ def favicon(request):
     return HttpResponse(status=204)
 
 def block_wordpress(request):
-    return HttpResponseNotFound()
+    return HttpResponse(status=404)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.portal.urls')),
     path('favicon.ico', favicon),
-    re_path(r'^wp-(admin|includes|content)/', block_wordpress),
+    re_path(r'^wp-(admin|includes|content|login|config)/', block_wordpress),
 ]
